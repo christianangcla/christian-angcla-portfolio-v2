@@ -77,26 +77,64 @@
 .v5-archive-two-col {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  gap: 20px;
   align-items: stretch;
+  flex: 0 0 auto;
+}
+
+/* 05.1 EXPERIENCE: Full-width compact current-role banner + full-width dossier card */
+.v5-archive-bento--exp {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 16px !important;
+}
+
+/* 05.2 EDUCATION: 7:5 asymmetric editorial bento split */
+.v5-archive-bento--edu {
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.v5-archive-bento--edu > .v5-archive-card:nth-child(1) {
+  grid-column: span 7;
+}
+
+.v5-archive-bento--edu > .v5-archive-card:nth-child(2) {
+  grid-column: span 5;
 }
 
 .v5-archive-card--spacious {
-  padding: 28px 32px !important;
-  justify-content: space-between !important;
-  min-height: 360px;
-}
-
-.v5-archive-card--compact {
-  min-height: 0 !important;
+  padding: 22px 28px !important;
   justify-content: flex-start !important;
-  align-self: start;
+  min-height: 0 !important;
+  min-width: 0;
 }
 
-.v5-archive-card--compact .v5-archive-org-row {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  border-bottom: none !important;
+/* Compact horizontal banner for DOST-ASTI (title, organization, dates only) */
+.v5-archive-card--banner {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px;
+  padding: 18px 28px !important;
+  min-height: 0 !important;
+}
+
+.v5-archive-banner-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.v5-archive-card--banner .v5-archive-role {
+  margin: 2px 0 2px !important;
+  font-size: clamp(1.22rem, 1.65vw, 1.5rem) !important;
+}
+
+.v5-archive-card--banner .v5-card-watermark {
+  margin-top: 0;
+  padding-top: 0;
+  align-self: center;
 }
 
 .v5-archive-title-row {
@@ -110,6 +148,7 @@
   font: 700 20px ui-monospace, monospace;
   color: rgba(135, 198, 250, 0.3);
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .v5-archive-card--spacious .v5-archive-badge {
@@ -123,13 +162,13 @@
 
 .v5-archive-card--spacious .v5-archive-role {
   margin: 6px 0 6px !important;
-  font-size: clamp(1.35rem, 1.9vw, 1.72rem) !important;
+  font-size: clamp(1.3rem, 1.8vw, 1.64rem) !important;
   line-height: 1.2 !important;
 }
 
 .v5-archive-card--spacious .v5-archive-org-row {
-  padding-bottom: 14px !important;
-  margin-bottom: 14px !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 12px !important;
 }
 
 .v5-archive-card--spacious .v5-archive-org {
@@ -141,13 +180,13 @@
 }
 
 .v5-archive-bullets--spacious {
-  gap: 10px !important;
+  gap: 8px !important;
 }
 
 .v5-archive-bullets--spacious li {
   padding-left: 16px !important;
-  font-size: 12.5px !important;
-  line-height: 1.65 !important;
+  font-size: 12.2px !important;
+  line-height: 1.6 !important;
   color: #eaf4ff !important;
 }
 
@@ -158,21 +197,45 @@
 }
 
 .v5-cred-grid--spacious {
-  gap: 20px !important;
+  gap: 16px !important;
+  flex: 0 0 auto !important;
+  grid-auto-rows: auto !important;
 }
 
-.v5-cred-grid--three {
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+/* 05.3 CERTIFICATIONS: Alternating 7:5 / 5:7 asymmetric bento grid */
+.v5-archive-bento--certs {
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+}
+
+.v5-archive-bento--certs > .v5-cred-card:nth-child(1),
+.v5-archive-bento--certs > .v5-cred-card:nth-child(4) {
+  grid-column: span 7;
+}
+
+.v5-archive-bento--certs > .v5-cred-card:nth-child(2),
+.v5-archive-bento--certs > .v5-cred-card:nth-child(3) {
+  grid-column: span 5;
+}
+
+/* 05.4 LEADERSHIP: 2 + 1 bento layout (CTF spans full width on bottom row) */
+.v5-cred-grid--three,
+.v5-archive-bento--lead {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.v5-archive-bento--lead > .v5-cred-card:nth-child(3) {
+  grid-column: 1 / -1;
 }
 
 .v5-cred-grid--three .v5-cred-card--spacious {
-  min-height: 340px;
-  padding: 28px 30px !important;
+  min-height: 0 !important;
+  padding: 20px 26px !important;
 }
 
 .v5-cred-card--spacious {
-  padding: 24px 28px !important;
-  min-height: 195px;
+  padding: 20px 24px !important;
+  min-height: 0 !important;
+  min-width: 0;
   border-left: 3px solid #6ac0ff !important;
   box-shadow: 0 12px 32px rgba(2, 8, 18, 0.45);
 }
@@ -192,31 +255,66 @@
 
 .v5-cred-card--spacious h4 {
   margin: 4px 0 6px !important;
-  font-size: clamp(1.18rem, 1.6vw, 1.42rem) !important;
+  font-size: clamp(1.14rem, 1.5vw, 1.36rem) !important;
   line-height: 1.25 !important;
 }
 
 .v5-cred-card--spacious .v5-cred-issuer {
-  margin-bottom: 10px !important;
+  margin-bottom: 8px !important;
   font-size: 12px !important;
 }
 
 .v5-cred-card--spacious p {
   font-size: 12px !important;
-  line-height: 1.65 !important;
+  line-height: 1.6 !important;
   color: #e4f1fd !important;
+}
+
+.v5-cred-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(135, 196, 248, 0.18);
 }
 
 .v5-cred-footer {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(135, 196, 248, 0.18);
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
   font: 600 9px ui-monospace, monospace;
   letter-spacing: 0.15em;
   color: #a8d8ff;
+}
+
+/* Faint decorative period/year watermark in card corner — never overlaps text */
+.v5-card-watermark {
+  display: block;
+  margin-top: auto;
+  padding-top: 8px;
+  align-self: flex-end;
+  text-align: right;
+  font: 800 clamp(1.15rem, 1.75vw, 1.65rem) / 0.92 ui-monospace, monospace;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: rgba(145, 206, 255, 0.085);
+  pointer-events: none;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.v5-cred-bottom-row .v5-card-watermark {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+[data-theme="light"] .v5-card-watermark {
+  color: rgba(18, 52, 92, 0.075);
 }
 
 /* 01: INTRODUCTION TO CHRISTIAN'S LAB */
@@ -800,13 +898,63 @@
 @media (max-width: 980px) {
   .v5-lab-grid,
   .v5-archive-two-col,
+  .v5-archive-bento--exp,
+  .v5-archive-bento--edu,
   .v5-archive-sym-grid,
   .v5-cred-grid,
+  .v5-archive-bento--certs,
   .v5-cred-grid--three,
+  .v5-archive-bento--lead,
   .v5-future-grid {
     grid-template-columns: 1fr !important;
   }
+
+  .v5-archive-bento--edu > .v5-archive-card,
+  .v5-archive-bento--certs > .v5-cred-card,
+  .v5-archive-bento--lead > .v5-cred-card {
+    grid-column: 1 / -1 !important;
+  }
+
   .v5-archive-cards-pair {
     grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .v5-archive-card--spacious,
+  .v5-cred-card--spacious,
+  .v5-cred-grid--three .v5-cred-card--spacious {
+    padding: 16px 18px !important;
+  }
+
+  .v5-archive-card--banner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+
+  .v5-archive-card--banner .v5-card-watermark {
+    align-self: flex-end;
+  }
+
+  .v5-cred-bottom-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .v5-card-watermark {
+    font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v5-archive-card,
+  .v5-cred-card,
+  .v5-archive-chapter-pill,
+  .v5-lab-card,
+  .v5-future-card {
+    transition: none !important;
+    transform: none !important;
   }
 }

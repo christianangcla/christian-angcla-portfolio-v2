@@ -507,35 +507,50 @@ export function PhaseOnePortfolio() {
               </p>
             </div>
 
-            <div className="v5-archive-two-col">
-              {EXPERIENCE_DATA.map((exp, idx) => (
-                <article
-                  className={`v5-archive-card v5-archive-card--spacious ${
-                    exp.highlights.length === 0 ? "v5-archive-card--compact" : ""
-                  }`}
-                  key={exp.id}
-                >
-                  <div className="v5-archive-card-meta">
-                    <span className="v5-archive-badge">{exp.badge}</span>
-                    <span className="v5-archive-period">{exp.period}</span>
-                  </div>
-                  <div className="v5-archive-title-row">
-                    <h3 className="v5-archive-role">{exp.role}</h3>
-                    <span className="v5-archive-num">0{idx + 1}</span>
-                  </div>
-                  <div className="v5-archive-org-row">
-                    <strong className="v5-archive-org">{exp.organization}</strong>
-                    {exp.location && <span className="v5-archive-loc">{exp.location}</span>}
-                  </div>
-                  {exp.highlights.length > 0 && (
+            <div className="v5-archive-two-col v5-archive-bento--exp">
+              {EXPERIENCE_DATA.map((exp, idx) =>
+                exp.highlights.length === 0 ? (
+                  <article
+                    className="v5-archive-card v5-archive-card--spacious v5-archive-card--banner"
+                    key={exp.id}
+                  >
+                    <div className="v5-archive-banner-main">
+                      <span className="v5-archive-period">{exp.period}</span>
+                      <h3 className="v5-archive-role">{exp.role}</h3>
+                      <strong className="v5-archive-org">{exp.organization}</strong>
+                    </div>
+                    <span className="v5-card-watermark" aria-hidden="true">
+                      {exp.period}
+                    </span>
+                  </article>
+                ) : (
+                  <article
+                    className="v5-archive-card v5-archive-card--spacious"
+                    key={exp.id}
+                  >
+                    <div className="v5-archive-card-meta">
+                      <span className="v5-archive-badge">{exp.badge}</span>
+                      <span className="v5-archive-period">{exp.period}</span>
+                    </div>
+                    <div className="v5-archive-title-row">
+                      <h3 className="v5-archive-role">{exp.role}</h3>
+                      <span className="v5-archive-num">0{idx + 1}</span>
+                    </div>
+                    <div className="v5-archive-org-row">
+                      <strong className="v5-archive-org">{exp.organization}</strong>
+                      {exp.location && <span className="v5-archive-loc">{exp.location}</span>}
+                    </div>
                     <ul className="v5-archive-bullets v5-archive-bullets--spacious">
                       {exp.highlights.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-                  )}
-                </article>
-              ))}
+                    <span className="v5-card-watermark" aria-hidden="true">
+                      {exp.period}
+                    </span>
+                  </article>
+                )
+              )}
             </div>
           </section>
         </div>
@@ -575,7 +590,7 @@ export function PhaseOnePortfolio() {
               </p>
             </div>
 
-            <div className="v5-archive-two-col">
+            <div className="v5-archive-two-col v5-archive-bento--edu">
               {EDUCATION_DATA.map((education, idx) => (
                 <article className="v5-archive-card v5-archive-card--spacious" key={education.institution}>
                   <div className="v5-archive-card-meta">
@@ -597,6 +612,9 @@ export function PhaseOnePortfolio() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                  <span className="v5-card-watermark" aria-hidden="true">
+                    {education.period}
+                  </span>
                 </article>
               ))}
             </div>
@@ -638,7 +656,7 @@ export function PhaseOnePortfolio() {
               </p>
             </div>
 
-            <div className="v5-cred-grid v5-cred-grid--spacious">
+            <div className="v5-cred-grid v5-cred-grid--spacious v5-archive-bento--certs">
               {certificationItems.map((credential, idx) => (
                 <article className="v5-cred-card v5-cred-card--spacious" key={credential.id}>
                   <div>
@@ -653,9 +671,14 @@ export function PhaseOnePortfolio() {
                     <strong className="v5-cred-issuer">{credential.issuer}</strong>
                     <p>{credential.summary}</p>
                   </div>
-                  <div className="v5-cred-footer">
-                    <span className="v5-lab-dot" />
-                    <span>VERIFIED CREDENTIAL · EXAMINED &amp; ISSUED</span>
+                  <div className="v5-cred-bottom-row">
+                    <div className="v5-cred-footer">
+                      <span className="v5-lab-dot" />
+                      <span>VERIFIED CREDENTIAL · EXAMINED &amp; ISSUED</span>
+                    </div>
+                    <span className="v5-card-watermark" aria-hidden="true">
+                      {credential.period}
+                    </span>
                   </div>
                 </article>
               ))}
@@ -698,7 +721,7 @@ export function PhaseOnePortfolio() {
               </p>
             </div>
 
-            <div className="v5-cred-grid v5-cred-grid--spacious v5-cred-grid--three">
+            <div className="v5-cred-grid v5-cred-grid--spacious v5-cred-grid--three v5-archive-bento--lead">
               {leadershipItems.map((credential, idx) => (
                 <article className="v5-cred-card v5-cred-card--spacious" key={credential.id}>
                   <div>
@@ -713,9 +736,14 @@ export function PhaseOnePortfolio() {
                     <strong className="v5-cred-issuer">{credential.issuer}</strong>
                     <p>{credential.summary}</p>
                   </div>
-                  <div className="v5-cred-footer">
-                    <span className="v5-lab-dot" />
-                    <span>VERIFIED RECORD · NATIONAL UNIVERSITY MANILA</span>
+                  <div className="v5-cred-bottom-row">
+                    <div className="v5-cred-footer">
+                      <span className="v5-lab-dot" />
+                      <span>VERIFIED RECORD · NATIONAL UNIVERSITY MANILA</span>
+                    </div>
+                    <span className="v5-card-watermark" aria-hidden="true">
+                      {credential.period}
+                    </span>
                   </div>
                 </article>
               ))}
