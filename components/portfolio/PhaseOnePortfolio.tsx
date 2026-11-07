@@ -6,6 +6,8 @@ import gsap from "gsap";
 import "./v53.css";
 import { PortfolioHero } from "./PortfolioHero";
 import { StageRail, WarpCanvas, useCinematicStage, type SceneDef } from "./CinematicStage";
+import { RollingNumber } from "@/components/ui/RollingNumber";
+import { DownloadResumeLink } from "@/components/ui/DownloadResumeLink";
 import { FEATURED_PROJECTS } from "@/lib/projects";
 import { enterExpedition } from "@/lib/universeNavigation";
 import {
@@ -110,7 +112,7 @@ export function PhaseOnePortfolio() {
                     className="v5-btn-secondary"
                     onClick={() => enterExpedition("origin")}
                   >
-                    Enter 3D Solar Expedition ✦
+                    Enter 3D solar expedition ✦
                   </button>
                 </div>
               </div>
@@ -225,7 +227,9 @@ export function PhaseOnePortfolio() {
                     <span key={item}>{item}</span>
                   ))}
                 </div>
-                <div className="v5-skill-number">0{activeSkill + 1}</div>
+                <div className="v5-skill-number">
+                  <RollingNumber value={`0${activeSkill + 1}`} />
+                </div>
               </div>
             </div>
           </section>
@@ -282,7 +286,7 @@ export function PhaseOnePortfolio() {
                               }))
                             }
                           >
-                            DUAL VIEW (2)
+                            Show dual view (2)
                           </button>
                           {gallery.map((item, gIdx) => (
                             <button
@@ -358,7 +362,7 @@ export function PhaseOnePortfolio() {
                                   }))
                                 }
                               >
-                                ← SHOW BOTH PICTURES
+                                ← Show both pictures
                               </button>
                             </div>
                             <div className="v5-gallery-frame-Viewport">
@@ -441,7 +445,7 @@ export function PhaseOnePortfolio() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Source <span className="v5-cta-arrow">↗</span>
+                          View source <span className="v5-cta-arrow">↗</span>
                         </a>
                       ) : null}
                       {project.demoUrl && (
@@ -451,7 +455,7 @@ export function PhaseOnePortfolio() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Live Demo <span className="v5-cta-arrow">↗</span>
+                          Open live demo <span className="v5-cta-arrow">↗</span>
                         </a>
                       )}
                       {project.demoVideoUrl && (
@@ -461,7 +465,7 @@ export function PhaseOnePortfolio() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Demo Video <span className="v5-cta-arrow">↗</span>
+                          Watch demo video <span className="v5-cta-arrow">↗</span>
                         </a>
                       )}
                     </div>
@@ -812,24 +816,19 @@ export function PhaseOnePortfolio() {
               <a className="v5-contact-cta" href={`mailto:${PROFILE_INFO.email}`}>
                 Let&apos;s build it <span className="v5-cta-arrow">↗</span>
               </a>
-              <a
+              <DownloadResumeLink
+                label="Download resume"
                 className="v5-button-secondary"
-                href="/Christian-Angcla-Resume.pdf"
-                download="Christian-Angcla-Resume.pdf"
-              >
-                Download Resume (PDF) <span className="v5-cta-arrow">↓</span>
-              </a>
+              />
             </div>
             <div className="v5-contact-footer">
               <span>{PROFILE_INFO.fullName}</span>
-              <a href="/Christian-Angcla-Resume.pdf" download="Christian-Angcla-Resume.pdf">
-                RESUME (PDF) ↓
-              </a>
+              <DownloadResumeLink label="Download resume" />
               <a href={PROFILE_INFO.linkedin} target="_blank" rel="noopener noreferrer">
-                LINKEDIN ↗
+                Open LinkedIn ↗
               </a>
               <a href={PROFILE_INFO.github} target="_blank" rel="noopener noreferrer">
-                GITHUB ↗
+                Open GitHub ↗
               </a>
               <a href={`mailto:${PROFILE_INFO.email}`}>{PROFILE_INFO.email}</a>
               <span>{PROFILE_INFO.location}</span>

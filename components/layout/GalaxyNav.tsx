@@ -141,10 +141,10 @@ export function GalaxyNav() {
           <button
             type="button"
             onClick={exitExpedition}
-            className="flex items-center gap-1.5 rounded-xl border border-border-strong bg-surface/90 px-3.5 py-2 font-mono text-xs font-semibold text-text-muted hover:text-foreground hover:border-primary transition-all backdrop-blur-md shadow-md"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-border-strong bg-surface/90 px-3.5 py-2 font-mono text-xs font-semibold text-text-muted hover:text-foreground hover:border-primary transition-colors backdrop-blur-md shadow-md"
             title="Return to Professional Portfolio"
           >
-            <span>✕ RETURN TO PORTFOLIO</span>
+            <span>✕ Return to portfolio</span>
           </button>
 
           {/* Return to Base / Origin Button */}
@@ -152,10 +152,10 @@ export function GalaxyNav() {
             <button
               type="button"
               onClick={() => travelTo("origin")}
-              className="group flex items-center gap-2 rounded-xl border border-primary/50 bg-primary/10 px-3.5 py-2 font-mono text-xs font-semibold text-primary transition-all hover:bg-primary hover:text-black hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] backdrop-blur-md shadow-md"
+              className="group inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-primary/50 bg-primary/10 px-3.5 py-2 font-mono text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-black hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] backdrop-blur-md shadow-md"
               title="Return to Launch Bay (Key: 1)"
             >
-              <span>‹ RETURN TO BASE</span>
+              <span>‹ Return to base</span>
             </button>
           )}
 
@@ -164,14 +164,14 @@ export function GalaxyNav() {
             <button
               type="button"
               onClick={toggleDossier}
-              className={`flex items-center gap-2 rounded-xl border px-3.5 py-2 font-mono text-xs font-semibold backdrop-blur-md shadow-md transition-all ${
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border px-3.5 py-2 font-mono text-xs font-semibold backdrop-blur-md shadow-md transition-colors ${
                 nav.dossierOpen
                   ? "border-border-strong bg-surface/85 text-text-muted hover:text-foreground hover:border-primary"
                   : "border-primary bg-primary text-black font-bold shadow-[0_0_20px_rgba(168,85,247,0.5)] animate-pulse"
               }`}
               title="Toggle Dossier Inspection (Space / Esc)"
             >
-              <span>{nav.dossierOpen ? "HIDE DOSSIER [ESC]" : "INSPECT DOSSIER [SPACE]"}</span>
+              <span>{nav.dossierOpen ? "Hide dossier [Esc]" : "Inspect dossier [Space]"}</span>
             </button>
           )}
 
@@ -179,10 +179,10 @@ export function GalaxyNav() {
           <button
             type="button"
             onClick={() => setIsMapExpanded(!isMapExpanded)}
-            className="md:hidden flex items-center gap-1.5 rounded-xl border border-border-strong bg-surface/85 px-3 py-2 font-mono text-xs text-foreground backdrop-blur-md"
-            aria-label="Toggle Navigation Console"
+            className="md:hidden inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-border-strong bg-surface/85 px-3 py-2 font-mono text-xs text-foreground backdrop-blur-md"
+            aria-label="Toggle navigation console"
           >
-            <span>MAP</span>
+            <span>Toggle map</span>
             <span className="text-primary font-bold">{isMapExpanded ? "▲" : "▼"}</span>
           </button>
         </div>
@@ -250,19 +250,19 @@ export function GalaxyNav() {
               <button
                 type="button"
                 onClick={navigatePrev}
-                className="px-2.5 py-1 rounded border border-border-subtle bg-surface-raised/60 hover:border-primary/60 hover:text-foreground text-text-muted transition-colors"
+                className="inline-flex min-h-[44px] items-center px-3 py-1.5 rounded border border-border-strong bg-surface-raised/60 hover:border-primary/60 hover:text-foreground text-text-muted transition-colors"
                 title="Previous Destination (Left Arrow)"
               >
-                ‹ PREV SECTOR
+                ‹ View prev sector
               </button>
               <span className="text-text-subtle">KEYBOARD 1–8</span>
               <button
                 type="button"
                 onClick={navigateNext}
-                className="px-2.5 py-1 rounded border border-border-subtle bg-surface-raised/60 hover:border-primary/60 hover:text-foreground text-text-muted transition-colors"
+                className="inline-flex min-h-[44px] items-center px-3 py-1.5 rounded border border-border-strong bg-surface-raised/60 hover:border-primary/60 hover:text-foreground text-text-muted transition-colors"
                 title="Next Destination (Right Arrow)"
               >
-                NEXT SECTOR ›
+                View next sector ›
               </button>
             </div>
           </div>

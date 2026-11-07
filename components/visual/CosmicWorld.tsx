@@ -12,15 +12,23 @@ import {
   DestinationId,
 } from "@/lib/universeNavigation";
 
+let cachedWebGLSupport: boolean | null = null;
+
 function checkWebGLSupport(): boolean {
   if (typeof window === "undefined") return false;
+  if (cachedWebGLSupport !== null) return cachedWebGLSupport;
   try {
     const canvas = document.createElement("canvas");
-    return !!(
-      window.WebGLRenderingContext &&
-      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
-    );
+    const gl = (canvas.getContext("webgl2") ||
+      canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+    // Do not call loseContext() here: forcing context loss on a probe canvas while other
+    // canvases initialise can destabilise the tab's GPU channel.
+    const supported = !!(window.WebGLRenderingContext && gl);
+    cachedWebGLSupport = supported;
+    return supported;
   } catch {
+    cachedWebGLSupport = false;
     return false;
   }
 }
@@ -89,9 +97,171 @@ function lerp(start: number, end: number, t: number) {
 const noopSubscribe = () => () => {};
 const getWebglServerSnapshot = () => true;
 
+interface ThemeSceneHandles {
+  renderer: THREE.WebGLRenderer;
+  fog: THREE.FogExp2;
+  ambientLight: THREE.AmbientLight;
+  sunLight: THREE.PointLight;
+  cyanPointLight: THREE.PointLight;
+  fillLight: THREE.PointLight;
+  starGeo: THREE.BufferGeometry;
+  starColorPaletteIndices: Uint8Array;
+  starMat: THREE.PointsMaterial;
+  simGeo: THREE.BufferGeometry;
+  simColorIsViolet: Uint8Array;
+  hullMat: THREE.MeshStandardMaterial;
+  spineMat: THREE.MeshStandardMaterial;
+  cockpitMat: THREE.MeshPhysicalMaterial;
+  cockpitRimMat: THREE.MeshBasicMaterial;
+  wingMat: THREE.MeshStandardMaterial;
+  wingletMat: THREE.MeshStandardMaterial;
+  tipLeftMat: THREE.MeshBasicMaterial;
+  tipRightMat: THREE.MeshBasicMaterial;
+  ringMat: THREE.MeshBasicMaterial;
+  plumeMat: THREE.MeshBasicMaterial;
+  innerTrailMat: THREE.MeshBasicMaterial;
+  gimbal1Mat: THREE.MeshStandardMaterial;
+  orbitalArcMat: THREE.MeshBasicMaterial;
+  crystalMat: THREE.MeshPhysicalMaterial;
+  crystalWireMat: THREE.LineBasicMaterial;
+  stationCoreMat: THREE.MeshStandardMaterial;
+  floodMat: THREE.MeshStandardMaterial;
+  bulldogsMat: THREE.MeshStandardMaterial;
+  interMat: THREE.MeshStandardMaterial;
+  birdieMat: THREE.MeshStandardMaterial;
+  beaconPulseRingMat: THREE.MeshBasicMaterial;
+}
+
+function applyThemeToScene(handles: ThemeSceneHandles, isDark: boolean) {
+  const clearColor = isDark ? 0x09090d : 0xf8f7fa;
+  const primaryColor = isDark ? 0xa855f7 : 0x7c3aed;
+  const secondaryColor = isDark ? 0xd8b4fe : 0x9333ea;
+  const cyanColor = isDark ? 0x38bdf8 : 0x0284c7;
+  const darkObsidian = isDark ? 0x161224 : 0x484156;
+
+  handles.renderer.setClearColor(clearColor, 1.0);
+  handles.fog.color.setHex(clearColor);
+
+  const inExpedition = getNavigationSnapshot().experienceMode === "expedition";
+  handles.ambientLight.color.setHex(isDark ? 0x221338 : 0xede4f8);
+  handles.ambientLight.intensity = inExpedition
+    ? isDark
+      ? 2.0
+      : 2.6
+    : isDark
+      ? 1.0
+      : 1.4;
+
+  handles.sunLight.color.setHex(primaryColor);
+  handles.sunLight.intensity = isDark ? 6.5 : 4.5;
+  handles.cyanPointLight.color.setHex(cyanColor);
+  handles.cyanPointLight.intensity = isDark ? 4.5 : 3.5;
+  handles.fillLight.color.setHex(secondaryColor);
+  handles.fillLight.intensity = isDark ? 3.5 : 2.5;
+
+  // Update starfield vertex colors & material
+  const cWhite = new THREE.Color(isDark ? 0xffffff : 0x473f55);
+  const cViolet = new THREE.Color(primaryColor);
+  const cCyan = new THREE.Color(cyanColor);
+  const cSoftViolet = new THREE.Color(secondaryColor);
+
+  const starColorsAttr = handles.starGeo.getAttribute("color") as THREE.BufferAttribute;
+  const starColors = starColorsAttr.array as Float32Array;
+  const starCount = handles.starColorPaletteIndices.length;
+  for (let i = 0; i < starCount; i++) {
+    const idx = handles.starColorPaletteIndices[i];
+    const col = idx === 0 ? cWhite : idx === 1 ? cViolet : idx === 2 ? cCyan : cSoftViolet;
+    starColors[i * 3] = col.r;
+    starColors[i * 3 + 1] = col.g;
+    starColors[i * 3 + 2] = col.b;
+  }
+  starColorsAttr.needsUpdate = true;
+
+  handles.starMat.size = isDark ? 0.12 : 0.08;
+  handles.starMat.opacity = inExpedition
+    ? isDark
+      ? 0.95
+      : 0.7
+    : isDark
+      ? 0.55
+      : 0.06;
+  handles.starMat.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+  handles.starMat.needsUpdate = true;
+
+  // Update simulation particle vertex colors
+  const simColorsAttr = handles.simGeo.getAttribute("color") as THREE.BufferAttribute;
+  const simColors = simColorsAttr.array as Float32Array;
+  const simCount = handles.simColorIsViolet.length;
+  for (let i = 0; i < simCount; i++) {
+    const pCol = handles.simColorIsViolet[i] === 1 ? cViolet : cCyan;
+    simColors[i * 3] = pCol.r;
+    simColors[i * 3 + 1] = pCol.g;
+    simColors[i * 3 + 2] = pCol.b;
+  }
+  simColorsAttr.needsUpdate = true;
+
+  // Update spacecraft, core, station & planetary materials
+  handles.hullMat.color.setHex(isDark ? 0x1a162b : 0xe4def0);
+  handles.spineMat.color.setHex(darkObsidian);
+  handles.cockpitMat.color.setHex(cyanColor);
+  handles.cockpitMat.emissive.setHex(cyanColor);
+  handles.cockpitRimMat.color.setHex(primaryColor);
+  handles.wingMat.color.setHex(isDark ? 0x141022 : 0xd8d0e8);
+  handles.wingletMat.color.setHex(darkObsidian);
+  handles.tipLeftMat.color.setHex(primaryColor);
+  handles.tipRightMat.color.setHex(cyanColor);
+  handles.ringMat.color.setHex(cyanColor);
+  handles.plumeMat.color.setHex(cyanColor);
+  handles.innerTrailMat.color.setHex(primaryColor);
+  handles.gimbal1Mat.color.setHex(darkObsidian);
+  handles.orbitalArcMat.color.setHex(primaryColor);
+  handles.crystalMat.color.setHex(isDark ? 0x241840 : 0xf1e8fc);
+  handles.crystalMat.emissive.setHex(isDark ? 0x1f0e38 : 0x5b259d);
+  handles.crystalMat.emissiveIntensity = isDark ? 0.9 : 0.5;
+  handles.crystalWireMat.color.setHex(cyanColor);
+  handles.stationCoreMat.color.setHex(isDark ? 0x1a243d : 0xdfe8fc);
+  handles.floodMat.color.setHex(isDark ? 0x082f49 : 0xbae6fd);
+  handles.bulldogsMat.color.setHex(isDark ? 0x064e3b : 0xa7f3d0);
+  handles.interMat.color.setHex(isDark ? 0x4c1d95 : 0xe9d5ff);
+  handles.birdieMat.color.setHex(isDark ? 0x78350f : 0xfde68a);
+  handles.beaconPulseRingMat.color.setHex(primaryColor);
+}
+
+function attachNavigationFallback(reason: string): () => void {
+  console.warn(
+    `[CosmicWorld] 3D WebGL background unavailable (${reason}). Using 2D navigation fallback.`
+  );
+  let fallbackTimer: number | null = null;
+
+  const checkAndCompleteFlight = () => {
+    const nav = getNavigationSnapshot();
+    if (nav.flightStatus === "traveling") {
+      if (fallbackTimer !== null) {
+        window.clearTimeout(fallbackTimer);
+      }
+      fallbackTimer = window.setTimeout(() => {
+        fallbackTimer = null;
+        updateFlightProgress(1.0);
+      }, 350);
+    }
+  };
+
+  checkAndCompleteFlight();
+  const unsubscribe = subscribeNavigation(checkAndCompleteFlight);
+
+  return () => {
+    unsubscribe();
+    if (fallbackTimer !== null) {
+      window.clearTimeout(fallbackTimer);
+    }
+  };
+}
+
 export function CosmicWorld() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
+  const isDarkRef = useRef(resolvedTheme === "dark");
+  const sceneHandlesRef = useRef<ThemeSceneHandles | null>(null);
 
   const webglSupported = useSyncExternalStore(
     noopSubscribe,
@@ -99,17 +269,37 @@ export function CosmicWorld() {
     getWebglServerSnapshot
   );
 
+  // Lightweight theme effect: updates clear color, fog, lights, and particle/mesh colors without recreating the WebGLRenderer
   useEffect(() => {
-    if (!webglSupported) return;
+    const isDark = resolvedTheme === "dark";
+    isDarkRef.current = isDark;
+    if (sceneHandlesRef.current) {
+      applyThemeToScene(sceneHandlesRef.current, isDark);
+    }
+  }, [resolvedTheme, webglSupported]);
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  useEffect(() => {
+    if (!webglSupported) {
+      return attachNavigationFallback("WebGL unsupported by browser");
+    }
+
+    const container = containerRef.current;
+    if (!container) return;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Renderer Setup
+    let animationFrameId = 0;
+
+    // Create a fresh <canvas> per mount so React Strict Mode remounts never reuse a canvas whose context was lost
+    const canvas = document.createElement("canvas");
+    canvas.className = "h-full w-full block outline-none pointer-events-none";
+    canvas.style.touchAction = "none";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+
+    // Renderer Setup: let Three.js create its own context with the attributes it needs
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
@@ -118,18 +308,33 @@ export function CosmicWorld() {
         antialias: true,
         powerPreference: "high-performance",
       });
-    } catch {
-      return;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "WebGLRenderer creation threw";
+      return attachNavigationFallback(msg);
     }
 
-    const isDark = resolvedTheme === "dark";
+    container.appendChild(canvas);
+
+    // If the browser drops the context, remove the dead opaque canvas (it would paint
+    // solid white/black) and fall back to the 2D navigation path.
+    let detachFallback: (() => void) | null = null;
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      cancelAnimationFrame(animationFrameId);
+      canvas.remove();
+      if (!detachFallback) detachFallback = attachNavigationFallback("WebGL context lost");
+    };
+    canvas.addEventListener("webglcontextlost", handleContextLost);
+
+    const isDark = isDarkRef.current;
     const clearColor = isDark ? 0x09090d : 0xf8f7fa;
     renderer.setClearColor(clearColor, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(clearColor, 0.008);
+    const fog = new THREE.FogExp2(clearColor, 0.008);
+    scene.fog = fog;
 
     // Dedicated Container for 3D Space Expedition Worlds
     // In Portfolio Mode, this container is hidden so editorial typography has 100% clarity.
@@ -202,6 +407,7 @@ export function CosmicWorld() {
     const starCount = 2200;
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
+    const starColorPaletteIndices = new Uint8Array(starCount);
 
     const cWhite = new THREE.Color(isDark ? 0xffffff : 0x473f55);
     const cViolet = new THREE.Color(primaryColor);
@@ -220,7 +426,16 @@ export function CosmicWorld() {
       starPositions[i * 3 + 2] = r * Math.cos(phi);
 
       const p = Math.random();
-      const col = p < 0.6 ? cWhite : p < 0.8 ? cViolet : p < 0.92 ? cCyan : cSoftViolet;
+      const paletteIdx = p < 0.6 ? 0 : p < 0.8 ? 1 : p < 0.92 ? 2 : 3;
+      starColorPaletteIndices[i] = paletteIdx;
+      const col =
+        paletteIdx === 0
+          ? cWhite
+          : paletteIdx === 1
+            ? cViolet
+            : paletteIdx === 2
+              ? cCyan
+              : cSoftViolet;
       starColors[i * 3] = col.r;
       starColors[i * 3 + 1] = col.g;
       starColors[i * 3 + 2] = col.b;
@@ -335,11 +550,13 @@ export function CosmicWorld() {
 
     // Wingtip Beacons
     const beaconGeo = new THREE.SphereGeometry(0.05, 8, 8);
-    const tipLeft = new THREE.Mesh(beaconGeo, new THREE.MeshBasicMaterial({ color: primaryColor }));
+    const tipLeftMat = new THREE.MeshBasicMaterial({ color: primaryColor });
+    const tipLeft = new THREE.Mesh(beaconGeo, tipLeftMat);
     tipLeft.position.set(-1.42, 0.48, -0.4);
     shipGroup.add(tipLeft);
 
-    const tipRight = new THREE.Mesh(beaconGeo, new THREE.MeshBasicMaterial({ color: cyanColor }));
+    const tipRightMat = new THREE.MeshBasicMaterial({ color: cyanColor });
+    const tipRight = new THREE.Mesh(beaconGeo, tipRightMat);
     tipRight.position.set(1.42, 0.48, -0.4);
     shipGroup.add(tipRight);
 
@@ -454,10 +671,12 @@ export function CosmicWorld() {
     coreGroup.add(crystalMesh);
 
     const crystalWireGeo = new THREE.WireframeGeometry(crystalGeo);
-    const crystalWire = new THREE.LineSegments(
-      crystalWireGeo,
-      new THREE.LineBasicMaterial({ color: cyanColor, transparent: true, opacity: 0.75 })
-    );
+    const crystalWireMat = new THREE.LineBasicMaterial({
+      color: cyanColor,
+      transparent: true,
+      opacity: 0.75,
+    });
+    const crystalWire = new THREE.LineSegments(crystalWireGeo, crystalWireMat);
     crystalMesh.add(crystalWire);
 
     // =========================================================================
@@ -594,6 +813,7 @@ export function CosmicWorld() {
     const simPositions = new Float32Array(simParticleCount * 3);
     const simVelocities = new Float32Array(simParticleCount * 3);
     const simColors = new Float32Array(simParticleCount * 3);
+    const simColorIsViolet = new Uint8Array(simParticleCount);
 
     for (let i = 0; i < simParticleCount; i++) {
       const radius = 0.5 + Math.random() * 4.5;
@@ -606,7 +826,9 @@ export function CosmicWorld() {
       simVelocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
       simVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
 
-      const pCol = Math.random() > 0.4 ? cViolet : cCyan;
+      const isViolet = Math.random() > 0.4 ? 1 : 0;
+      simColorIsViolet[i] = isViolet;
+      const pCol = isViolet === 1 ? cViolet : cCyan;
       simColors[i * 3] = pCol.r;
       simColors[i * 3 + 1] = pCol.g;
       simColors[i * 3 + 2] = pCol.b;
@@ -643,12 +865,50 @@ export function CosmicWorld() {
     beaconGroup.add(beaconSpire);
 
     const beaconPulseRingGeo = new THREE.TorusGeometry(1.6, 0.02, 16, 64);
-    const beaconPulseRing = new THREE.Mesh(
-      beaconPulseRingGeo,
-      new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.8 })
-    );
+    const beaconPulseRingMat = new THREE.MeshBasicMaterial({
+      color: primaryColor,
+      transparent: true,
+      opacity: 0.8,
+    });
+    const beaconPulseRing = new THREE.Mesh(beaconPulseRingGeo, beaconPulseRingMat);
     beaconPulseRing.rotation.x = Math.PI / 2;
     beaconGroup.add(beaconPulseRing);
+
+    sceneHandlesRef.current = {
+      renderer,
+      fog,
+      ambientLight,
+      sunLight,
+      cyanPointLight,
+      fillLight,
+      starGeo,
+      starColorPaletteIndices,
+      starMat,
+      simGeo,
+      simColorIsViolet,
+      hullMat,
+      spineMat,
+      cockpitMat,
+      cockpitRimMat,
+      wingMat,
+      wingletMat,
+      tipLeftMat,
+      tipRightMat,
+      ringMat,
+      plumeMat,
+      innerTrailMat,
+      gimbal1Mat,
+      orbitalArcMat,
+      crystalMat,
+      crystalWireMat,
+      stationCoreMat,
+      floodMat,
+      bulldogsMat,
+      interMat,
+      birdieMat,
+      beaconPulseRingMat,
+    };
+    applyThemeToScene(sceneHandlesRef.current, isDarkRef.current);
 
     // =========================================================================
     // POINTER & RESIZE LISTENERS
@@ -704,7 +964,6 @@ export function CosmicWorld() {
     // =========================================================================
     // UNIFIED ANIMATION & RENDER LOOP
     // =========================================================================
-    let animationFrameId: number;
     let lastTime = performance.now();
 
     const animate = (now: number) => {
@@ -747,9 +1006,22 @@ export function CosmicWorld() {
 
       const navSnapshot = getNavigationSnapshot();
       const inExpedition = navSnapshot.experienceMode === "expedition";
+      const currentIsDark = isDarkRef.current;
       expeditionWorld.visible = inExpedition;
-      starMat.opacity = inExpedition ? (isDark ? 0.95 : 0.7) : (isDark ? 0.55 : 0.06);
-      ambientLight.intensity = inExpedition ? (isDark ? 2.0 : 2.6) : (isDark ? 1.0 : 1.4);
+      starMat.opacity = inExpedition
+        ? currentIsDark
+          ? 0.95
+          : 0.7
+        : currentIsDark
+          ? 0.55
+          : 0.06;
+      ambientLight.intensity = inExpedition
+        ? currentIsDark
+          ? 2.0
+          : 2.6
+        : currentIsDark
+          ? 1.0
+          : 1.4;
 
       if (!inExpedition) {
         // ---------------------------------------------------------------------
@@ -892,12 +1164,43 @@ export function CosmicWorld() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      sceneHandlesRef.current = null;
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
+      detachFallback?.();
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       unsubscribeNav();
+
+      scene.traverse((obj) => {
+        const renderable = obj as THREE.Mesh | THREE.LineSegments | THREE.Points;
+        if (renderable.geometry) {
+          renderable.geometry.dispose();
+        }
+        if (renderable.material) {
+          const materials = Array.isArray(renderable.material)
+            ? renderable.material
+            : [renderable.material];
+          for (const mat of materials) {
+            for (const value of Object.values(mat)) {
+              if (
+                value &&
+                typeof value === "object" &&
+                "isTexture" in value &&
+                (value as THREE.Texture).isTexture
+              ) {
+                (value as THREE.Texture).dispose();
+              }
+            }
+            mat.dispose();
+          }
+        }
+      });
+
       renderer.dispose();
+      renderer.forceContextLoss();
+      canvas.remove();
     };
-  }, [resolvedTheme, webglSupported]);
+  }, [webglSupported]);
 
   if (!webglSupported) {
     return (
@@ -909,10 +1212,9 @@ export function CosmicWorld() {
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 h-full w-full outline-none pointer-events-none"
-      style={{ touchAction: "none" }}
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-0 h-full w-full bg-background outline-none pointer-events-none"
       aria-hidden="true"
     />
   );

@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { enterExpedition } from "@/lib/universeNavigation";
 import { PROFILE_INFO } from "@/lib/resume";
+import { DownloadResumeLink } from "@/components/ui/DownloadResumeLink";
 
 export function SiteFooter() {
   const currentYear = 2026;
@@ -48,19 +49,16 @@ export function SiteFooter() {
             <Link href="/#contact" className="transition-colors hover:text-foreground">
               Contact
             </Link>
-            <a
-              href="/Christian-Angcla-Resume.pdf"
-              download="Christian-Angcla-Resume.pdf"
-              className="transition-colors hover:text-foreground"
-            >
-              Resume ↓
-            </a>
+            <DownloadResumeLink
+              label="Download resume"
+              className="inline-flex min-h-[44px] items-center gap-1.5 transition-colors hover:text-foreground"
+            />
             <button
               type="button"
               onClick={() => enterExpedition("origin")}
-              className="text-primary font-mono font-bold hover:underline"
+              className="inline-flex min-h-[44px] items-center text-primary font-mono font-bold hover:underline"
             >
-              [ 3D Expedition ✦ ]
+              Launch 3D expedition ✦
             </button>
           </nav>
         </div>

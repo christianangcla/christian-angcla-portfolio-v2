@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { enterExpedition } from "@/lib/universeNavigation";
 import { PROFILE_INFO } from "@/lib/resume";
 import { HeroEnvironment } from "./HeroEnvironment";
+import { DownloadResumeLink } from "@/components/ui/DownloadResumeLink";
 
 export function PortfolioHero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -176,20 +177,17 @@ export function PortfolioHero() {
             >
               <span className="v5-launch-dot" /> Launch 3D expedition
             </button>
-            <a
-              href="/Christian-Angcla-Resume.pdf"
-              download="Christian-Angcla-Resume.pdf"
+            <DownloadResumeLink
+              label="Download resume"
               className="v5-github-link"
-            >
-              Resume <span>↓</span>
-            </a>
+            />
             <a
               href={PROFILE_INFO.github}
               target="_blank"
               rel="noopener noreferrer"
               className="v5-github-link"
             >
-              GitHub <span>↗</span>
+              Open GitHub <span>↗</span>
             </a>
             <a
               href={PROFILE_INFO.linkedin}
@@ -197,7 +195,7 @@ export function PortfolioHero() {
               rel="noopener noreferrer"
               className="v5-github-link"
             >
-              LinkedIn <span>↗</span>
+              Open LinkedIn <span>↗</span>
             </a>
           </div>
         </div>

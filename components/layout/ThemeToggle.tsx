@@ -13,7 +13,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
       title={`Switch to ${isDark ? "light" : "dark"} theme`}
-      className="group relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface text-foreground transition-all duration-200 hover:border-primary hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group relative inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border-strong bg-surface text-foreground transition-colors duration-200 hover:border-primary hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <span className="sr-only">Toggle theme</span>
       {isDark ? (

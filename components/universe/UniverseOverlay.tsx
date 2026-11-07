@@ -3,6 +3,7 @@
 import React, { useSyncExternalStore, useCallback } from "react";
 import Image from "next/image";
 import { FEATURED_PROJECTS, Project } from "@/lib/projects";
+import { DownloadResumeLink } from "@/components/ui/DownloadResumeLink";
 import {
   DESTINATIONS,
   DestinationId,
@@ -188,17 +189,17 @@ export function UniverseOverlay() {
               <button
                 type="button"
                 onClick={() => travelTo("floodguard")}
-                className="group relative inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-primary px-8 text-sm font-semibold text-midnight-void shadow-[0_0_30px_rgba(168,85,247,0.45)] transition-all duration-300 hover:bg-primary-hover hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(168,85,247,0.65)]"
+                className="group relative inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl bg-primary px-8 text-sm font-semibold text-midnight-void shadow-[0_0_30px_rgba(168,85,247,0.45)] transition-colors duration-300 hover:bg-primary-hover hover:shadow-[0_0_40px_rgba(168,85,247,0.65)]"
               >
-                <span>Launch Expedition ›</span>
+                <span>Launch expedition ›</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => travelTo("disciplines")}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface-raised/80 px-6 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/60 hover:bg-surface-raised"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface-raised/80 px-6 text-sm font-medium text-foreground transition-colors duration-300 hover:border-primary/60 hover:bg-surface-raised"
               >
-                <span>Inspect Engineering Core</span>
+                <span>Inspect engineering core</span>
               </button>
             </div>
 
@@ -251,9 +252,9 @@ export function UniverseOverlay() {
               <button
                 type="button"
                 onClick={() => travelTo("floodguard")}
-                className="self-start sm:self-auto inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2 font-mono text-xs font-semibold text-black hover:bg-primary-hover transition-colors"
+                className="self-start sm:self-auto inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-primary px-5 py-2 font-mono text-xs font-semibold text-black hover:bg-primary-hover transition-colors"
               >
-                <span>Travel to Planetary Worlds ›</span>
+                <span>Travel to planetary worlds ›</span>
               </button>
             </div>
 
@@ -320,10 +321,10 @@ export function UniverseOverlay() {
                   <button
                     type="button"
                     onClick={handleCloseDossier}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-border-strong bg-surface-raised px-3 py-1.5 font-mono text-xs text-text-muted hover:text-foreground hover:border-primary transition-colors"
+                    className="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg border border-border-strong bg-surface-raised px-3 py-1.5 font-mono text-xs text-text-muted hover:text-foreground hover:border-primary transition-colors"
                     title="Close dossier to view full 3D planet (Esc)"
                   >
-                    <span>CLOSE DOSSIER [✕]</span>
+                    <span>Close dossier [✕]</span>
                   </button>
                 </div>
               </div>
@@ -410,7 +411,7 @@ export function UniverseOverlay() {
                             href={repo.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 font-mono text-xs font-semibold text-black hover:bg-primary-hover hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all"
+                            className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-primary px-5 py-2.5 font-mono text-xs font-semibold text-black hover:bg-primary-hover hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-colors"
                           >
                             <span>{repo.label}</span>
                             <span aria-hidden="true">↗</span>
@@ -421,9 +422,9 @@ export function UniverseOverlay() {
                           href={currentProject.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-mono text-xs font-semibold text-black hover:bg-primary-hover hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all"
+                          className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-mono text-xs font-semibold text-black hover:bg-primary-hover hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-colors"
                         >
-                          <span>Source</span>
+                          <span>View source</span>
                           <span aria-hidden="true">↗</span>
                         </a>
                       ) : null}
@@ -432,9 +433,9 @@ export function UniverseOverlay() {
                           href={currentProject.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-xl border border-primary/60 bg-surface-raised px-5 py-2.5 font-mono text-xs font-semibold text-foreground hover:border-primary hover:text-primary transition-all"
+                          className="inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-primary/60 bg-surface-raised px-5 py-2.5 font-mono text-xs font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
                         >
-                          <span>Live Demo</span>
+                          <span>Open live demo</span>
                           <span aria-hidden="true">↗</span>
                         </a>
                       )}
@@ -444,16 +445,16 @@ export function UniverseOverlay() {
                       <button
                         type="button"
                         onClick={navigatePrevPlanet}
-                        className="px-3 py-2 rounded-lg border border-border-subtle bg-surface-raised hover:border-primary text-text-muted hover:text-foreground transition-colors"
+                        className="inline-flex min-h-[44px] items-center px-3 py-2 rounded-lg border border-border-strong bg-surface-raised hover:border-primary text-text-muted hover:text-foreground transition-colors"
                       >
-                        ‹ PREV PLANET
+                        ‹ View prev planet
                       </button>
                       <button
                         type="button"
                         onClick={navigateNextPlanet}
-                        className="px-3 py-2 rounded-lg border border-border-subtle bg-surface-raised hover:border-primary text-text-muted hover:text-foreground transition-colors"
+                        className="inline-flex min-h-[44px] items-center px-3 py-2 rounded-lg border border-border-strong bg-surface-raised hover:border-primary text-text-muted hover:text-foreground transition-colors"
                       >
-                        NEXT PLANET ›
+                        View next planet ›
                       </button>
                     </div>
                   </div>
@@ -564,35 +565,32 @@ export function UniverseOverlay() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="mailto:christianangcla4@gmail.com"
-                className="inline-flex h-12 items-center gap-3 rounded-xl bg-primary px-8 text-sm font-semibold text-black shadow-[0_0_24px_rgba(168,85,247,0.4)] hover:bg-primary-hover hover:scale-[1.02] transition-all"
+                className="inline-flex min-h-[48px] items-center gap-3 rounded-xl bg-primary px-8 text-sm font-semibold text-black shadow-[0_0_24px_rgba(168,85,247,0.4)] hover:bg-primary-hover transition-colors"
               >
                 <span>christianangcla4@gmail.com</span>
               </a>
 
-              <a
-                href="/Christian-Angcla-Resume.pdf"
-                download="Christian-Angcla-Resume.pdf"
-                className="inline-flex h-12 items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
-              >
-                <span>Download Resume (PDF) ↓</span>
-              </a>
+              <DownloadResumeLink
+                label="Download resume"
+                className="inline-flex min-h-[48px] items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
+              />
 
               <a
                 href="https://github.com/ChristianAngcla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
+                className="inline-flex min-h-[48px] items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
               >
-                <span>GitHub Profile</span>
+                <span>Open GitHub</span>
               </a>
 
               <a
                 href="https://linkedin.com/in/christianangcla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
+                className="inline-flex min-h-[48px] items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
               >
-                <span>LinkedIn Profile</span>
+                <span>Open LinkedIn</span>
               </a>
             </div>
 

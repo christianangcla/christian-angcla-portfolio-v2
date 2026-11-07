@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type MutableRefObject, type RefObject } from "react";
 import gsap from "gsap";
+import { RollingNumber } from "@/components/ui/RollingNumber";
 
 export interface SceneDef {
   id: string;
@@ -948,9 +949,9 @@ export function StageRail({
       </div>
       <nav className="v5-rail" aria-label="Scene navigation">
         <p className="v5-rail-count" aria-live="polite">
-          {pad(index + 1)}
+          <RollingNumber value={pad(index + 1)} />
           <i>/</i>
-          {pad(defs.length)}
+          <span>{pad(defs.length)}</span>
         </p>
         <ul>
           {defs.map((def, i) => (
