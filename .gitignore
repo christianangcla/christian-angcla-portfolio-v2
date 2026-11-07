@@ -39,8 +39,6 @@ claude-design-handoff/
 docs/
 .agents/
 skills-lock.json
-public/resume.pdf
-public/cv.pdf
 
 # Archives
 *.zip

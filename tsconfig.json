@@ -30,5 +30,11 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "angcla-client",
+    "angcla-server",
+    "christians-lab-v5.1-handoff",
+    "claude-design-handoff"
+  ]
 }

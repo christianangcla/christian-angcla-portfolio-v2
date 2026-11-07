@@ -1,11 +1,11 @@
 # Christian's Lab — Software Engineering Portfolio
 
-Personal engineering portfolio and interactive 3D project showcase of **Christian Constantino Angcla** (Intern Software Developer at DOST-ASTI; BSIT specializing in Mobile and Web Applications at National University Manila; DOST-SEI JLSS Scholar & Doña Miguela M. Jhocson BLUE Scholar).
+Personal engineering portfolio and interactive 3D project showcase of **Christian Constantino Angcla** (Software Developer Intern at DOST-ASTI; BSIT specializing in Mobile and Web Applications at National University Manila; DOST-SEI JLSS Scholar & Doña Miguela M. Jhocson BLUE Scholar).
 
 ## Overview
 
 Christian's Lab presents selected full-stack web and mobile applications, technical disciplines, academic credentials, and certifications across two viewing modes:
-- **Editorial Portfolio (`PhaseOnePortfolio`)**: Structured showcase of featured engineering case studies (including FloodGuard, Bulldogs Exchange, QuicKita, Intertwine, and How to Train Your Birdie), technical capabilities, education, certifications, and leadership history.
+- **Editorial Portfolio (`PhaseOnePortfolio`)**: Structured showcase of featured engineering case studies (including FloodGuard, Bulldogs Exchange, Intertwine, and How to Train Your Birdie), technical capabilities, education, certifications, and leadership history.
 - **3D Expedition Mode (`CosmicWorld` + `UniverseOverlay`)**: An interactive WebGL solar system where visitors can navigate between project destinations and inspect project dossiers.
 
 ## Tech Stack
@@ -61,7 +61,8 @@ npm run start
 │   └── universeNavigation.ts   # External store managing 3D flight coordinates and mode state
 ├── public/
 │   ├── images/projects/        # Project screenshots and gallery assets
-│   └── resume.pdf              # Downloadable single-page CV/resume (user-supplied)
+│   ├── Christian-Angcla-Resume.pdf # Downloadable single-page resume
+│   └── Christian-Angcla-CV.pdf     # Curriculum Vitae PDF
 └── docs/
     ├── AUDIT.md                # Comprehensive engineering & design audit
     └── AUDIT-SUMMARY.md        # Compact audit summary

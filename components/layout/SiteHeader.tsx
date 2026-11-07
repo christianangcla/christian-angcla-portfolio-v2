@@ -94,8 +94,8 @@ export function SiteHeader() {
         {/* Desktop Action Deck (Resume + 3D Expedition Launcher + Theme Toggle) */}
         <div className="hidden items-center gap-2.5 md:flex shrink-0">
           <a
-            href="/resume.pdf"
-            download="Christian_Angcla_Resume.pdf"
+            href="/Christian-Angcla-Resume.pdf"
+            download="Christian-Angcla-Resume.pdf"
             className="inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-surface px-3.5 py-1.5 text-xs font-semibold text-foreground transition-colors duration-200 hover:border-primary hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             title="Download Resume (PDF)"
           >
@@ -192,8 +192,8 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href="/resume.pdf"
-              download="Christian_Angcla_Resume.pdf"
+              href="/Christian-Angcla-Resume.pdf"
+              download="Christian-Angcla-Resume.pdf"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-1 inline-flex items-center justify-between rounded-lg border border-border-strong bg-surface px-3 py-2 text-base font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
             >

@@ -48,6 +48,13 @@ export function SiteFooter() {
             <Link href="/#contact" className="transition-colors hover:text-foreground">
               Contact
             </Link>
+            <a
+              href="/Christian-Angcla-Resume.pdf"
+              download="Christian-Angcla-Resume.pdf"
+              className="transition-colors hover:text-foreground"
+            >
+              Resume ↓
+            </a>
             <button
               type="button"
               onClick={() => enterExpedition("origin")}
