@@ -31,7 +31,7 @@ const MILESTONES: TimelineMilestone[] = [
   {
     year: "2025",
     phase: "Year 3 // Mobile Applications & Spatial Prototypes",
-    summary: "Android native mobile development with Kotlin, Jetpack Compose, geospatial hydrological modeling, and hardware-accelerated 3D graphics.",
+    summary: "Android cross-platform mobile development with Flutter & Dart, geospatial hydrological modeling, and hardware-accelerated 3D graphics.",
     coursework: ["Mobile Application Development", "Defensive Programming", "Systems Integration & Architecture", "Software Engineering Methods"],
     competency: "Reactive Mobile & WebGL",
   },

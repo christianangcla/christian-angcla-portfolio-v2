@@ -63,7 +63,7 @@ const FOCUS_AREAS: FocusArea[] = [
     label: "3D Graphics & Kinetic UI",
     description:
       "Exploring WebGL 3D rendering, interactive canvas mechanics, 2D game loops, and responsive microinteractions. Crafting visual interfaces that feel tactile, responsive, and engaging.",
-    methods: ["Three.js WebGL Scenegraph", "Kinetic Gyroscopic Math", "Canvas API Game Loops", "Fluid UI Interpolation"],
+    methods: ["Three.js WebGL Scenegraph", "Kinetic Gyroscopic Math", "LibGDX 2D Game Loops", "Fluid UI Interpolation"],
     specs: [
       { label: "GRAPHICS", value: "Three.js & WebGL" },
       { label: "PHYSICS", value: "Verlet & Euler" },

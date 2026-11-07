@@ -28,7 +28,7 @@ const NODES: DisciplineNode[] = [
     id: "mobile",
     label: "Mobile Systems",
     domain: "02 // ANDROID",
-    tech: "Kotlin • Jetpack Compose • MVVM",
+    tech: "Flutter • Dart • Firebase",
     cx: 400,
     cy: 220,
     angle: 135,

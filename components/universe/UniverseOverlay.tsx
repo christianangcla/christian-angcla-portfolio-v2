@@ -165,7 +165,7 @@ export function UniverseOverlay() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               <span>
-                SYS_ONLINE <span className="text-primary font-bold">{"//"}</span> INTERN SOFTWARE DEVELOPER @ DOST-ASTI <span className="text-primary font-bold">{"//"}</span> NU MANILA
+                SYS_ONLINE <span className="text-primary font-bold">{"//"}</span> SOFTWARE DEVELOPER INTERN @ DOST-ASTI <span className="text-primary font-bold">{"//"}</span> NU MANILA
               </span>
             </div>
 
@@ -570,8 +570,8 @@ export function UniverseOverlay() {
               </a>
 
               <a
-                href="/resume.pdf"
-                download="Christian_Angcla_Resume.pdf"
+                href="/Christian-Angcla-Resume.pdf"
+                download="Christian-Angcla-Resume.pdf"
                 className="inline-flex h-12 items-center gap-2 rounded-xl border border-border-strong bg-surface-raised px-6 text-sm font-semibold text-foreground hover:border-primary transition-colors"
               >
                 <span>Download Resume (PDF) ↓</span>

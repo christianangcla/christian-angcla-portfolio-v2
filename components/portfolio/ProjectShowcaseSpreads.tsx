@@ -67,49 +67,6 @@ function FloodGuardInteractiveHUD() {
 }
 
 // ----------------------------------------------------------------------------
-// 2. QuicKita Interactive Matchmaking Simulator
-// ----------------------------------------------------------------------------
-function QuicKitaInteractiveHUD() {
-  const [matchingStatus, setMatchingStatus] = useState<"idle" | "matching" | "matched">("idle");
-
-  const runSimulation = () => {
-    setMatchingStatus("matching");
-    setTimeout(() => {
-      setMatchingStatus("matched");
-    }, 600);
-  };
-
-  return (
-    <div className="mt-4 rounded-xl border border-border-subtle bg-surface/80 p-4 font-mono text-xs">
-      <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-        <span className="text-amber-400 font-bold">HYPERLOCAL DISCOVERY PROTOCOL</span>
-        <span className="text-text-subtle text-[11px]">MERN REST API</span>
-      </div>
-
-      <div className="mt-3 flex items-center justify-between text-[11px]">
-        <div>
-          <span className="text-text-subtle block">REQUEST QUERY:</span>
-          <span className="text-foreground font-semibold">Residential Electrician • Radius &lt;2km</span>
-        </div>
-        <button
-          type="button"
-          onClick={runSimulation}
-          className="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/50 text-amber-400 font-bold hover:bg-amber-400 hover:text-black transition-colors"
-        >
-          {matchingStatus === "matching" ? "Querying..." : "Simulate Dispatch"}
-        </button>
-      </div>
-
-      <div className="mt-2 text-[10px] text-text-muted truncate">
-        {matchingStatus === "idle" && "Standby: Listening on /api/v1/services/nearby"}
-        {matchingStatus === "matching" && "Executing spatial polygon radius match..."}
-        {matchingStatus === "matched" && "Dispatched: 3 certified service providers within 1.2km verified"}
-      </div>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------------
 // 3. Intertwine Interactive ViewModel & StateFlow Simulator
 // ----------------------------------------------------------------------------
 function IntertwineInteractiveHUD() {
@@ -129,7 +86,7 @@ function IntertwineInteractiveHUD() {
   return (
     <div className="mt-4 rounded-xl border border-border-subtle bg-surface/80 p-4 font-mono text-xs">
       <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-        <span className="text-primary font-bold">KOTLIN COROUTINES STATEFLOW SIMULATOR</span>
+        <span className="text-primary font-bold">FLUTTER &amp; PROVIDER STATE SIMULATOR</span>
         <span className="px-2 py-0.5 rounded bg-primary/20 text-primary text-[10px] font-bold">
           {flowState}
         </span>
@@ -384,7 +341,6 @@ export function ProjectShowcaseSpreads() {
 
                     {/* Dedicated Interactive Mini Simulation */}
                     {proj.slug === "floodguard" && <FloodGuardInteractiveHUD />}
-                    {proj.slug === "quickita" && <QuicKitaInteractiveHUD />}
                     {proj.slug === "intertwine" && <IntertwineInteractiveHUD />}
                     {proj.slug === "how-to-train-your-birdie" && <BirdieInteractiveCanvas />}
                   </div>
@@ -509,7 +465,6 @@ export function ProjectShowcaseSpreads() {
                 </div>
 
                 {proj.slug === "floodguard" && <FloodGuardInteractiveHUD />}
-                {proj.slug === "quickita" && <QuicKitaInteractiveHUD />}
                 {proj.slug === "intertwine" && <IntertwineInteractiveHUD />}
                 {proj.slug === "how-to-train-your-birdie" && <BirdieInteractiveCanvas />}
               </div>

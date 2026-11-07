@@ -34,10 +34,10 @@ const WORLD_METAS: Record<ProjectSlug, WorldMeta> = {
     glowColor: "rgba(56, 189, 248, 0.25)",
     pulseClass: "bg-sky-400 shadow-[0_0_12px_#38bdf8]",
   },
-  quickita: {
+  "bulldogs-exchange": {
     code: "PLANET_02",
-    worldType: "CONNECTED NODE NETWORK",
-    coordinates: "CLUSTER_MERN // HYPERLOCAL_MESH",
+    worldType: "COMMERCE LEDGER NEXUS",
+    coordinates: "14.6042° N, 120.9946° E // SAMPALOC",
     accentText: "text-emerald-400",
     accentBorder: "border-emerald-500/60",
     accentBg: "bg-emerald-500/10",
@@ -56,8 +56,8 @@ const WORLD_METAS: Record<ProjectSlug, WorldMeta> = {
   },
   "how-to-train-your-birdie": {
     code: "PLANET_04",
-    worldType: "ARCADE COLLISION MATRIX",
-    coordinates: "VECTOR_2D // 60_FPS_CANVAS",
+    worldType: "2D SPACE SHOOTER",
+    coordinates: "VECTOR_2D // JAVA_LIBGDX",
     accentText: "text-amber-400",
     accentBorder: "border-amber-500/60",
     accentBg: "bg-amber-500/10",

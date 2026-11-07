@@ -8,7 +8,6 @@ export type DestinationId =
   | "disciplines"
   | "floodguard"
   | "bulldogs-exchange"
-  | "quickita"
   | "intertwine"
   | "birdie"
   | "simulation"
@@ -89,24 +88,9 @@ export const DESTINATIONS: Record<DestinationId, DestinationConfig> = {
     type: "planet",
     projectSlug: "bulldogs-exchange",
   },
-  quickita: {
-    id: "quickita",
-    code: "SECTOR_02C",
-    label: "QUICKITA",
-    category: "CONNECTED NODE NETWORK",
-    coordinates: "CLUSTER_MERN // HYPERLOCAL_MESH",
-    description:
-      "Hyperlocal employment matchmaking platform with full-stack reactive nodes.",
-    camPos: [-8.8, -0.8, -2.8],
-    lookAt: [-11.2, -1.8, -8.0],
-    shipPos: [-9.2, -1.5, -3.8],
-    shipRot: [-0.04, -0.45, -0.14],
-    type: "planet",
-    projectSlug: "quickita",
-  },
   intertwine: {
     id: "intertwine",
-    code: "SECTOR_02D",
+    code: "SECTOR_02C",
     label: "INTERTWINE",
     category: "REACTIVE MOBILE RESONANCE",
     coordinates: "FREQ_868_MHZ // DART_REACTIVE",
@@ -121,12 +105,12 @@ export const DESTINATIONS: Record<DestinationId, DestinationConfig> = {
   },
   birdie: {
     id: "birdie",
-    code: "SECTOR_02E",
-    label: "BIRDIE DEFENSE",
-    category: "ARCADE COLLISION MATRIX",
-    coordinates: "VECTOR_2D // 60_FPS_CANVAS",
+    code: "SECTOR_02D",
+    label: "HOW TO TRAIN YOUR BIRDIE",
+    category: "2D SPACE SHOOTER",
+    coordinates: "VECTOR_2D // JAVA_LIBGDX",
     description:
-      "Arcade-inspired pixel defense game with custom projectile physics.",
+      "2D Android space shooter game built with Java and LibGDX for NU Tech Fiesta.",
     camPos: [-4.6, 4.4, -8.8],
     lookAt: [-6.8, 4.2, -14.0],
     shipPos: [-5.0, 3.6, -9.8],
@@ -169,7 +153,6 @@ export const DESTINATION_LIST: DestinationId[] = [
   "disciplines",
   "floodguard",
   "bulldogs-exchange",
-  "quickita",
   "intertwine",
   "birdie",
   "simulation",
@@ -179,7 +162,6 @@ export const DESTINATION_LIST: DestinationId[] = [
 export const PLANETARY_DESTINATIONS: DestinationId[] = [
   "floodguard",
   "bulldogs-exchange",
-  "quickita",
   "intertwine",
   "birdie",
 ];

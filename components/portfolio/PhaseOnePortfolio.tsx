@@ -21,7 +21,6 @@ import {
 const projectWorlds: Record<string, string> = {
   floodguard: "v5-world-flood",
   "bulldogs-exchange": "v5-world-network",
-  quickita: "v5-world-network",
   intertwine: "v5-world-intertwine",
   "how-to-train-your-birdie": "v5-world-birdie",
 };
@@ -145,7 +144,7 @@ export function PhaseOnePortfolio() {
             <div className="v5-section-label">02 <span>/</span> THE PILOT</div>
             <div className="v5-about-grid">
               <div>
-                <p className="v5-overline">INTERN SOFTWARE DEVELOPER · DOST-ASTI</p>
+                <p className="v5-overline">SOFTWARE DEVELOPER INTERN · DOST-ASTI</p>
                 <h2 className="v5-display">
                   <span className="v5-text-mask"><span className="v5-mask-line">I build technology</span></span>
                   <span className="v5-text-mask"><span className="v5-mask-line"><span>for real-world</span></span></span>
@@ -160,7 +159,7 @@ export function PhaseOnePortfolio() {
                 <div className="v5-facts">
                   <div>
                     <span>CURRENT ROLE</span>
-                    <b>Intern Software Developer · DOST-ASTI</b>
+                    <b>Software Developer Intern · DOST-ASTI</b>
                   </div>
                   <div>
                     <span>EDUCATION</span>
@@ -178,8 +177,8 @@ export function PhaseOnePortfolio() {
               </div>
             </div>
             <div className="v5-marquee" aria-hidden="true">
-              <span>DOST-ASTI INTERN SOFTWARE DEVELOPER · DOST-SEI JLSS SCHOLAR · BUILD WITH INTENTION · </span>
-              <span>DOST-ASTI INTERN SOFTWARE DEVELOPER · DOST-SEI JLSS SCHOLAR · BUILD WITH INTENTION · </span>
+              <span>DOST-ASTI SOFTWARE DEVELOPER INTERN · DOST-SEI JLSS SCHOLAR · BUILD WITH INTENTION · </span>
+              <span>DOST-ASTI SOFTWARE DEVELOPER INTERN · DOST-SEI JLSS SCHOLAR · BUILD WITH INTENTION · </span>
             </div>
           </section>
         </div>
@@ -241,10 +240,10 @@ export function PhaseOnePortfolio() {
               <div className="v5-section-label">04 <span>/</span> SELECTED ENGINEERING WORK</div>
               <div className="v5-heading-row">
                 <h2 className="v5-display">
-                  <span className="v5-text-mask"><span className="v5-mask-line">Five problems.</span></span>
-                  <span className="v5-text-mask"><span className="v5-mask-line"><span>Five different worlds.</span></span></span>
+                  <span className="v5-text-mask"><span className="v5-mask-line">Four problems.</span></span>
+                  <span className="v5-text-mask"><span className="v5-mask-line"><span>Four different worlds.</span></span></span>
                 </h2>
-                <p>Full-stack and mobile builds spanning predictive flood forecasting, role-scoped e-commerce, local opportunity, social connection, and 2D Android game systems.</p>
+                <p>Full-stack and mobile builds spanning predictive flood forecasting, role-scoped e-commerce, social connection, and 2D Android game systems.</p>
               </div>
             </div>
           </section>
@@ -504,13 +503,18 @@ export function PhaseOnePortfolio() {
                 </h2>
               </div>
               <p>
-                Hands-on software engineering experience building public-sector R&amp;D systems at <strong>DOST-ASTI</strong> and leading full-stack &amp; mobile architecture for <strong>FloodGuard</strong> at <strong>NU Manila</strong>.
+                Software Developer Intern at <strong>DOST-ASTI</strong> (November 2026 – Present) and Mobile Developer / Full-Stack Contributor on a team capstone for <strong>FloodGuard</strong> at <strong>NU Manila</strong>.
               </p>
             </div>
 
             <div className="v5-archive-two-col">
               {EXPERIENCE_DATA.map((exp, idx) => (
-                <article className="v5-archive-card v5-archive-card--spacious" key={exp.id}>
+                <article
+                  className={`v5-archive-card v5-archive-card--spacious ${
+                    exp.highlights.length === 0 ? "v5-archive-card--compact" : ""
+                  }`}
+                  key={exp.id}
+                >
                   <div className="v5-archive-card-meta">
                     <span className="v5-archive-badge">{exp.badge}</span>
                     <span className="v5-archive-period">{exp.period}</span>
@@ -521,13 +525,15 @@ export function PhaseOnePortfolio() {
                   </div>
                   <div className="v5-archive-org-row">
                     <strong className="v5-archive-org">{exp.organization}</strong>
-                    <span className="v5-archive-loc">{exp.location}</span>
+                    {exp.location && <span className="v5-archive-loc">{exp.location}</span>}
                   </div>
-                  <ul className="v5-archive-bullets v5-archive-bullets--spacious">
-                    {exp.highlights.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  {exp.highlights.length > 0 && (
+                    <ul className="v5-archive-bullets v5-archive-bullets--spacious">
+                      {exp.highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
                 </article>
               ))}
             </div>
@@ -768,7 +774,7 @@ export function PhaseOnePortfolio() {
             <div className="v5-contact-rings" aria-hidden="true" />
             <p className="v5-section-label">07 <span>/</span> FINAL TRANSMISSION</p>
             <p className="v5-contact-overline">
-              <span className="v5-beacon-dot" /> TRANSMISSION CHANNEL OPEN · DOST-ASTI INTERN SOFTWARE DEVELOPER
+              <span className="v5-beacon-dot" /> TRANSMISSION CHANNEL OPEN · DOST-ASTI SOFTWARE DEVELOPER INTERN
             </p>
             <h2>
               <span className="v5-text-mask"><span className="v5-mask-line">Have a problem</span></span>
@@ -780,15 +786,15 @@ export function PhaseOnePortfolio() {
               </a>
               <a
                 className="v5-button-secondary"
-                href="/resume.pdf"
-                download="Christian_Angcla_Resume.pdf"
+                href="/Christian-Angcla-Resume.pdf"
+                download="Christian-Angcla-Resume.pdf"
               >
                 Download Resume (PDF) <span className="v5-cta-arrow">↓</span>
               </a>
             </div>
             <div className="v5-contact-footer">
               <span>{PROFILE_INFO.fullName}</span>
-              <a href="/resume.pdf" download="Christian_Angcla_Resume.pdf">
+              <a href="/Christian-Angcla-Resume.pdf" download="Christian-Angcla-Resume.pdf">
                 RESUME (PDF) ↓
               </a>
               <a href={PROFILE_INFO.linkedin} target="_blank" rel="noopener noreferrer">

@@ -87,6 +87,18 @@
   min-height: 360px;
 }
 
+.v5-archive-card--compact {
+  min-height: 0 !important;
+  justify-content: flex-start !important;
+  align-self: start;
+}
+
+.v5-archive-card--compact .v5-archive-org-row {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
 .v5-archive-title-row {
   display: flex;
   align-items: flex-start;

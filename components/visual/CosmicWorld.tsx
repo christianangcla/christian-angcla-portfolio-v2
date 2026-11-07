@@ -52,7 +52,7 @@ export function getSimulationModeServerSnapshot(): SimulationMode {
 }
 
 // Planetary Navigation Compatibility Layer
-export type ProjectSlug = "floodguard" | "quickita" | "intertwine" | "how-to-train-your-birdie";
+export type ProjectSlug = "floodguard" | "bulldogs-exchange" | "intertwine" | "how-to-train-your-birdie";
 
 export function setActiveProject(slug: ProjectSlug) {
   const destId: DestinationId = slug === "how-to-train-your-birdie" ? "birdie" : slug;
@@ -66,7 +66,7 @@ export function subscribeActiveProject(callback: () => void) {
 export function getActiveProjectSnapshot(): ProjectSlug {
   const nav = getNavigationSnapshot();
   if (nav.targetDestination === "birdie") return "how-to-train-your-birdie";
-  if (["floodguard", "quickita", "intertwine"].includes(nav.targetDestination)) {
+  if (["floodguard", "bulldogs-exchange", "intertwine"].includes(nav.targetDestination)) {
     return nav.targetDestination as ProjectSlug;
   }
   return "floodguard";
@@ -514,29 +514,29 @@ export function CosmicWorld() {
     floodRadarRing.rotation.x = Math.PI / 3.2;
     planetFloodGroup.add(floodRadarRing);
 
-    // Planet 2: QuicKita (Connected Node Network World at -11.2, -1.8, -8.0)
-    const planetQuicGroup = new THREE.Group();
-    planetQuicGroup.position.set(-11.2, -1.8, -8.0);
-    expeditionWorld.add(planetQuicGroup);
+    // Planet 2: Bulldogs Exchange (Commerce Ledger Nexus at 5.2, 3.1, -6.4)
+    const planetBulldogsGroup = new THREE.Group();
+    planetBulldogsGroup.position.set(5.2, 3.1, -6.4);
+    expeditionWorld.add(planetBulldogsGroup);
 
-    const quicGeo = new THREE.SphereGeometry(1.5, 32, 32);
-    const quicMat = new THREE.MeshStandardMaterial({
+    const bulldogsGeo = new THREE.SphereGeometry(1.5, 32, 32);
+    const bulldogsMat = new THREE.MeshStandardMaterial({
       color: isDark ? 0x064e3b : 0xa7f3d0,
       emissive: 0x059669,
       emissiveIntensity: 0.4,
       roughness: 0.32,
       metalness: 0.55,
     });
-    const planetQuic = new THREE.Mesh(quicGeo, quicMat);
-    planetQuicGroup.add(planetQuic);
+    const planetBulldogs = new THREE.Mesh(bulldogsGeo, bulldogsMat);
+    planetBulldogsGroup.add(planetBulldogs);
 
-    const quicRingGeo = new THREE.TorusGeometry(2.15, 0.018, 16, 80);
-    const quicRing = new THREE.Mesh(
-      quicRingGeo,
+    const bulldogsRingGeo = new THREE.TorusGeometry(2.15, 0.018, 16, 80);
+    const bulldogsRing = new THREE.Mesh(
+      bulldogsRingGeo,
       new THREE.MeshBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.8 })
     );
-    quicRing.rotation.y = Math.PI / 4;
-    planetQuicGroup.add(quicRing);
+    bulldogsRing.rotation.y = Math.PI / 4;
+    planetBulldogsGroup.add(bulldogsRing);
 
     // Planet 3: Intertwine (Reactive Mobile Resonance World at 7.8, -3.8, -12.0)
     const planetInterGroup = new THREE.Group();
@@ -727,8 +727,8 @@ export function CosmicWorld() {
       planetFlood.rotation.y += 0.003;
       floodRadarRing.rotation.z += 0.015;
 
-      planetQuic.rotation.y += 0.0025;
-      quicRing.rotation.x += 0.012;
+      planetBulldogs.rotation.y += 0.0025;
+      bulldogsRing.rotation.x += 0.012;
 
       planetInter.rotation.y += 0.0035;
       interRing.rotation.y += 0.014;

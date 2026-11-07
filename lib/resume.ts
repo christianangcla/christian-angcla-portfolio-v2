@@ -64,32 +64,27 @@ export interface FutureWorkItem {
 export const PROFILE_INFO = {
   fullName: "Christian Constantino Angcla",
   preferredName: "Christian C. Angcla",
-  title: "Intern Software Developer • Full-Stack & Mobile Engineer",
-  role: "Intern Software Developer — DOST-ASTI",
-  tagline: "Intern Software Developer @ DOST-ASTI • BSIT @ NU Manila",
+  title: "Software Developer Intern • Full-Stack & Mobile Engineer",
+  role: "Software Developer Intern — DOST-ASTI",
+  tagline: "Software Developer Intern @ DOST-ASTI • BSIT @ NU Manila",
   location: "Manila / Cainta, Rizal, Philippines",
   email: "christianangcla4@gmail.com",
   github: "https://github.com/ChristianAngcla",
   linkedin: "https://linkedin.com/in/christianangcla",
   scholarships: "DOST-SEI JLSS Scholar • Doña Miguela M. Jhocson BLUE Scholar • Dean's Lister",
   summary:
-    "BSIT student specializing in Mobile and Web Applications at National University Manila and Intern Software Developer at the DOST Advanced Science and Technology Institute (DOST-ASTI). Hands-on experience developing and deploying full-stack Web and Android applications using Flutter, React, Node.js, Express, MongoDB, and Firebase. Experienced in REST API development, authentication and RBAC, production deployment, API security, real-time notifications, data visualization, and regression testing. DOST-SEI JLSS Scholar and Dean's Lister.",
+    "BSIT student specializing in Mobile and Web Applications at National University Manila and Software Developer Intern at the DOST Advanced Science and Technology Institute (DOST-ASTI). Hands-on experience developing and deploying full-stack Web and Android applications using Flutter, React, Node.js, Express, MongoDB, and Firebase. Experienced in REST API development, authentication and RBAC, production deployment, API security, real-time notifications, data visualization, and regression testing. DOST-SEI JLSS Scholar and Dean's Lister.",
 };
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: "exp-dost-asti",
-    role: "Intern Software Developer",
+    role: "Software Developer Intern",
     organization: "DOST Advanced Science and Technology Institute (DOST-ASTI)",
-    location: "Diliman, Quezon City • Metro Manila",
-    period: "2026 — Present",
+    location: "",
+    period: "November 2026 – Present",
     badge: "CURRENT INTERNSHIP",
-    highlights: [
-      "Engineering research-grade web and software systems at the Department of Science and Technology — Advanced Science and Technology Institute.",
-      "Building modular full-stack features, REST API integrations, role-based access controls, and interactive telemetry interfaces.",
-      "Collaborating with R&D engineers on software reliability, data validation, and deployment workflows.",
-    ],
-    tags: ["Full-Stack R&D", "REST APIs", "RBAC Security", "Telemetry Systems", "DOST-ASTI"],
+    highlights: [],
   },
   {
     id: "exp-floodguard",
@@ -97,9 +92,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     organization: "FloodGuard Capstone Development Project • National University – Manila",
     location: "Sampaloc, Manila",
     period: "2025 — 2026",
-    badge: "CAPSTONE LEAD ENGINEER",
+    badge: "CAPSTONE DEVELOPER",
     highlights: [
-      "Architected the Flutter/Dart Android app (OpenStreetMap/Leaflet) and React/Vite Admin Dashboard with Firebase Auth, FCM push alerts, and barangay-scoped RBAC.",
+      "Developed the Flutter/Dart Android app (OpenStreetMap/Leaflet) and contributed to the React/Vite Admin Dashboard as a Mobile Developer / Full-Stack Contributor on a team capstone with Firebase Auth, FCM push alerts, and barangay-scoped RBAC.",
       "Integrated station-specific OLS Multiple Linear Regression models (C13, C4, C8) for Sto. Niño, Nangka, and Tumana verified via strict 24/24 observations, MAE, RMSE, Mean Bias, and signed error.",
       "Hardened production Node.js/Express & MongoDB Atlas APIs with rate limiting, HTTP 429 protection, request coalescing, and regression tests.",
     ],
@@ -132,7 +127,7 @@ export const EDUCATION_DATA: EducationItem[] = [
     highlights: [
       "Graduated with High Honors, achieving a cumulative General Weighted Average (GPA) of 97.",
       "Built a rigorous foundation in calculus, quantitative statistics, physics, and scientific computing.",
-      "Led research and analytical capstone projects preparing for university-level software engineering.",
+      "Graduated with High Honors in the STEM strand.",
     ],
     tags: ["High Honors (GPA 97)", "Quantitative Analysis", "STEM Research", "Academic Excellence"],
   },
@@ -334,7 +329,7 @@ export const LAB_PILLARS: LabPillarItem[] = [
     subtitle: "Flutter · React · Node.js · MongoDB",
     description:
       "Every build is engineered across the entire vertical—pairing responsive React/Vite web consoles and cross-platform Flutter Android clients with modular Express and MongoDB REST backends.",
-    metrics: "5 DEPLOYED WORLDS · CROSS-PLATFORM SYNC",
+    metrics: "4 DEPLOYED WORLDS · CROSS-PLATFORM SYNC",
   },
   {
     code: "LAB_03 // DEFENSIVE BY DEFAULT",
@@ -361,7 +356,7 @@ export const FUTURE_WORKS_DATA: FutureWorkItem[] = [
     title: "Public-Sector R&D Software Systems",
     domain: "DOST Advanced Science and Technology Institute",
     description:
-      "Developing and hardening scalable web modules, telemetry pipelines, and research-backed software systems as an Intern Software Developer at DOST-ASTI.",
+      "Software Developer Intern at DOST Advanced Science and Technology Institute (DOST-ASTI), November 2026 – Present.",
     stack: ["Full-Stack Web", "REST APIs", "RBAC & Security", "Telemetry Visualization"],
   },
   {
@@ -379,7 +374,7 @@ export const FUTURE_WORKS_DATA: FutureWorkItem[] = [
     title: "Distributed Microservices & DevSecOps Lab",
     domain: "High-Concurrency Backend Engineering",
     description:
-      "Evolving campus and community platforms like Bulldogs Exchange and QuicKita with Dockerized services, Redis caching, automated CI/CD security scans, and load-tested API gateways.",
+      "Evolving campus and community platforms like Bulldogs Exchange with Dockerized services, Redis caching, automated CI/CD security scans, and load-tested API gateways.",
     stack: ["Node.js", "Docker", "Redis", "Automated QA & CI/CD"],
   },
   {

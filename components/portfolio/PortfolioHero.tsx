@@ -147,14 +147,14 @@ export function PortfolioHero() {
       <HeroEnvironment />
       <div className="v5-hero-grain" aria-hidden="true" />
       <div className="v5-hero-topline">
-        <span>CHRISTIAN&apos;S LAB <i>/</i> DOST-ASTI INTERN SOFTWARE DEVELOPER</span>
+        <span>CHRISTIAN&apos;S LAB <i>/</i> DOST-ASTI SOFTWARE DEVELOPER INTERN</span>
         <span>MANILA · CAINTA, RIZAL · PH</span>
       </div>
 
       <div className="v5-hero-inner">
         <div ref={copyRef} className="v5-hero-copy">
           <p className="v5-hero-kicker">
-            <span className="v5-beacon-dot" /> INTERN SOFTWARE DEVELOPER @ DOST-ASTI · BSIT @ NU MANILA
+            <span className="v5-beacon-dot" /> SOFTWARE DEVELOPER INTERN @ DOST-ASTI · BSIT @ NU MANILA
           </p>
           <h1 id="v5-hero-title" className="v5-hero-name">
             <span className="v5-name-mask"><span className="v5-name-line">Christian</span></span>
@@ -177,8 +177,8 @@ export function PortfolioHero() {
               <span className="v5-launch-dot" /> Launch 3D expedition
             </button>
             <a
-              href="/resume.pdf"
-              download="Christian_Angcla_Resume.pdf"
+              href="/Christian-Angcla-Resume.pdf"
+              download="Christian-Angcla-Resume.pdf"
               className="v5-github-link"
             >
               Resume <span>↓</span>
@@ -205,7 +205,7 @@ export function PortfolioHero() {
 
       <div className="v5-hero-readout v5-readout-left">
         <span>CURRENT ROLE // DOST-ASTI</span>
-        <b>INTERN SOFTWARE DEVELOPER</b>
+        <b>SOFTWARE DEVELOPER INTERN</b>
       </div>
       <div className="v5-hero-readout v5-readout-right">
         <span>SCHOLARSHIP // HONORS</span>

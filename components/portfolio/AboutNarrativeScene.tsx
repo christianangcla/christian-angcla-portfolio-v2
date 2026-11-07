@@ -289,7 +289,7 @@ export function AboutNarrativeScene() {
                   "TypeScript",
                   "React 19 / Next.js 15",
                   "Three.js / WebGL",
-                  "Kotlin / Compose",
+                  "Flutter / Dart",
                   "PostgreSQL / Supabase",
                   "Tailwind CSS",
                 ].map((stack) => (
