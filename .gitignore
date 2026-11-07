@@ -1,0 +1,69 @@
+# Dependencies (any depth)
+node_modules/
+**/node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+/coverage
+**/coverage/
+
+# Next.js & Build Output
+.next/
+**/.next/
+out/
+**/out/
+build/
+**/build/
+dist/
+**/dist/
+
+# Environment variables (any depth, allow .env.example)
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Ignored local subprojects, handoffs, docs, and agent tooling (kept on disk)
+angcla-server/
+angcla-client/
+christians-lab-v5.1-handoff/
+claude-design-handoff/
+docs/
+.agents/
+skills-lock.json
+public/resume.pdf
+public/cv.pdf
+
+# Archives
+*.zip
+
+# OS & Editor Junk
+.DS_Store
+**/.DS_Store
+Thumbs.db
+**/Thumbs.db
+Desktop.ini
+**/Desktop.ini
+*.pem
+
+# Debug Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vercel
+.vercel
+**/.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
