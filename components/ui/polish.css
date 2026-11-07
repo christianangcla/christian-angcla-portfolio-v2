@@ -1,0 +1,151 @@
+/* ==========================================================================
+   POLISH: custom cursor halo, card glare, scenery performance rules
+   ========================================================================== */
+
+/* ---------- Cursor halo ---------- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out), scale 150ms var(--ease-out), rotate 220ms var(--ease-out);
+  will-change: translate, scale, rotate;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #bfe4ff;
+  box-shadow: 0 0 10px rgba(155, 215, 255, 0.9);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  color: rgba(191, 228, 255, 0.9);
+  filter: drop-shadow(0 0 4px rgba(79, 168, 255, 0.7));
+}
+
+/* Soft light that blooms around the reticle over interactive elements */
+.cursor-ring::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 110px;
+  height: 110px;
+  margin: -55px 0 0 -55px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 191, 255, 0.34), rgba(120, 191, 255, 0.12) 40%, rgba(120, 191, 255, 0) 70%);
+  opacity: 0;
+  scale: 0.4;
+  transition: opacity 200ms var(--ease-out), scale 220ms var(--ease-out);
+  pointer-events: none;
+}
+
+.cursor-ring.is-hover::before {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ---------- Card glare (element injected by CardTilt) ---------- */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out);
+  z-index: 3;
+}
+
+/* While tilting, the card follows the pointer 1:1 (no CSS transition lag on transform) */
+.tilt-active {
+  transition: none !important;
+}
+
+.tilt-glare i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(191, 228, 255, 0.26), rgba(191, 228, 255, 0) 62%);
+  will-change: transform;
+}
+
+/* ---------- Scenery performance ---------- */
+/* Only the visible scene animates its backdrop */
+.v5-scene:not(.is-current) .amb *,
+.v5-scene:not(.is-current) .amb {
+  animation-play-state: paused !important;
+}
+
+/* Pause everything decorative while the tab is hidden (set by AmbientScenery) */
+html.amb-hidden .amb *,
+html.amb-hidden .amb {
+  animation-play-state: paused !important;
+}
+
+/* Low-end devices (few cores / low memory): lighter backdrop */
+html.amb-lite .amb-aurora--c,
+html.amb-lite .amb-grid,
+html.amb-lite .amb-comet--2,
+html.amb-lite .amb-stars--near {
+  display: none;
+}
+/* ---------- Headline shimmer: a light glint sweeps across each scene heading as it arrives ---------- */
+.v5-scene .v5-display .v5-mask-line,
+.v5-scene .v5-display .v5-mask-line span {
+  color: transparent;
+}
+
+.v5-scene .v5-display .v5-mask-line {
+  background-image: linear-gradient(
+    105deg,
+    #78bfff 0%,
+    #78bfff 42%,
+    #ffffff 50%,
+    #78bfff 58%,
+    #78bfff 100%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.v5-scene.is-current .v5-display .v5-mask-line {
+  animation: headline-shimmer 11s var(--ease-out) 1.4s infinite;
+}
+
+.v5-scene.is-current .v5-display .v5-text-mask:nth-child(2) .v5-mask-line {
+  animation-delay: 1.75s;
+}
+
+@keyframes headline-shimmer {
+  0% { background-position: 100% 0; }
+  16% { background-position: 0% 0; }
+  100% { background-position: 0% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v5-scene.is-current .v5-display .v5-mask-line {
+    animation: none;
+    background-position: 100% 0;
+  }
+}

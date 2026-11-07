@@ -5,6 +5,8 @@ import Image from "next/image";
 import gsap from "gsap";
 import "./v53.css";
 import { PortfolioHero } from "./PortfolioHero";
+import { AmbientScenery } from "./AmbientScenery";
+import { CardTilt } from "./CardTilt";
 import { StageRail, WarpCanvas, useCinematicStage, type SceneDef } from "./CinematicStage";
 import { RollingNumber } from "@/components/ui/RollingNumber";
 import { DownloadResumeLink } from "@/components/ui/DownloadResumeLink";
@@ -838,6 +840,8 @@ export function PhaseOnePortfolio() {
       </div>
 
       <div className="v5-wipe-edge" aria-hidden="true" />
+      <AmbientScenery rootRef={containerRef} />
+      <CardTilt rootRef={containerRef} />
       <WarpCanvas warp={warp} />
       <StageRail defs={SCENE_DEFS} index={index} onSelect={goTo} />
     </div>

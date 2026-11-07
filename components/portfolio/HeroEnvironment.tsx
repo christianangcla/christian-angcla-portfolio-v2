@@ -446,6 +446,9 @@ export function HeroEnvironment() {
     let raf = 0;
     let lastTime = performance.now() * 0.001;
     let elapsedTime = 0;
+    // Warp factor (0..1): how fast the stage is changing scenes right now
+    let warp = 0;
+    let prevProgress = scrollProgress;
 
     const render = () => {
       raf = requestAnimationFrame(render);
@@ -464,6 +467,20 @@ export function HeroEnvironment() {
       cursorLight.position.y = -pointer.y * 4 + 1.2;
 
       if (!reducedMotion) {
+        // --- Warp stretch: ship, gateway, stars and dust elongate while a scene change runs ---
+        const velocity = Math.abs(scrollProgress - prevProgress) / Math.max(delta, 0.001);
+        prevProgress = scrollProgress;
+        warp += (Math.min(1, velocity * 0.9) - warp) * 0.18;
+        const fov = 38 + warp * 24;
+        if (Math.abs(camera.fov - fov) > 0.01) {
+          camera.fov = fov;
+          camera.updateProjectionMatrix();
+        }
+        ship.scale.set(1 - warp * 0.14, 1 - warp * 0.14, 1 + warp * 0.8);
+        gateway.scale.set(1, 1, 1 + warp * 0.6);
+        starsA.scale.z = starsB.scale.z = 1 + warp * 1.6;
+        starsB.rotation.z = warp * 0.06;
+
         // --- A. Spacecraft Hovering & Banking ---
         // Organic dual-sine hover breathing
         const hoverY = -0.45 + Math.sin(time * 0.85) * 0.075 + Math.cos(time * 0.42) * 0.025;
@@ -535,7 +552,7 @@ export function HeroEnvironment() {
         // Drift foreground dust motes
         const cPositions = geoC.attributes.position.array as Float32Array;
         for (let i = 0; i < countC; i++) {
-          cPositions[i * 3 + 1] -= speedC[i];
+          cPositions[i * 3 + 1] -= speedC[i] * (1 + warp * 45);
           cPositions[i * 3] += Math.sin(time * 0.5 + i) * 0.002;
           if (cPositions[i * 3 + 1] < -8) {
             cPositions[i * 3 + 1] = 8;

@@ -6,6 +6,8 @@ import { GalaxyNav } from "@/components/layout/GalaxyNav";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SmoothScroll } from "@/components/scroll/SmoothScroll";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { BootIntro } from "@/components/ui/BootIntro";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -71,6 +73,8 @@ export default function RootLayout({
         <ThemeProvider>
           {/* Persistent 3D WebGL Universe Canvas (Fixed at z-0) */}
           <CosmicWorld />
+          <CustomCursor />
+          <BootIntro />
 
           {/* Subtle Architectural Dot Matrix Overlay */}
           <div className="fixed inset-0 z-[1] bg-dot-matrix pointer-events-none opacity-40 dark:opacity-30" aria-hidden="true" />
